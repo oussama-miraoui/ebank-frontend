@@ -5,7 +5,17 @@
             <div class="card-header">
                 Customers
             </div>
+
             <div class="card-body">
+
+                <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
+                    <div class="input-group">
+                        <label for="" class="input-group-text">Keyword</label>
+                        <input type="text" class="form-control" formControlName="keyword" placeholder="Search">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </form>
+
                 <table class="table">
                     <thead>
                         <tr>
