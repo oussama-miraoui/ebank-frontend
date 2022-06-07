@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Customer } from '../model/customer.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +26,9 @@ export class CustomerService {
 
   public deleteCustomer(id: number): Observable<Customer> {
     return this.http.delete<Customer>(environment.backendHost + "/customers/" + id)
+  }
+
+  public editCustomer(id: number, customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(environment.backendHost + "/customers/" + id, customer)
   }
 }

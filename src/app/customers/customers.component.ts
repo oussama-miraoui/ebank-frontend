@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { CustomerService } from '../services/customer.service'
+declare const alertify: any;
 
 @Component({
   selector: 'app-customers',
@@ -46,9 +47,18 @@ export class CustomersComponent implements OnInit {
     )
   }
 
-  handleDeleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id).subscribe({
-      next: () => this.handleSearchCustomers(),
+  handleDeleteCustomer(customer: Customer) {
+    this.customerService.deleteCustomer(customer.id).subscribe({
+      next: (res) => {
+        this.customers = this.customers.pipe(
+          map(data => {
+            let index = data.indexOf(customer)
+            data.slice(index, 1)
+            alertify.success("Customer deleted!")
+            return data
+          })
+        )
+      },
       error: err => this.errorMessage = err.message
     })
   }

@@ -22,7 +22,7 @@ import { NewCustomerComponent } from './new-customer/new-customer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
