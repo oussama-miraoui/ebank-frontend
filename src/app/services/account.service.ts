@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Account } from '../model/account.model';
+import { environment } from 'src/environments/environment';
+import { AccountDetails } from '../model/account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  public getAccounts(): Observable<Array<Account>> {
-    return this.http.get<Array<Account>>('http://localhost:8081/accounts')
+  public getAccount(id: string, page: number, size: number): Observable<AccountDetails> {
+    return this.http.get<AccountDetails>(environment.backendHost + '/accounts/' + id + '/pageOperations?page=' + page + '&size=' + size)
+
   }
 }

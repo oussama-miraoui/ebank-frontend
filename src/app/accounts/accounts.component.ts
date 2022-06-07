@@ -1,7 +1,8 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Account } from '../model/account.model';
+import { AccountDetails } from '../model/account.model';
 import { AccountService } from '../services/account.service';
 
 
@@ -11,19 +12,26 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  accounts!: Observable<Array<Account>>
-  errorMessage!: object
+  accountFromGroup!: FormGroup
+  currentPage: number = 0
+  size: number = 5
+  accountObservable!: Observable<AccountDetails>
 
-  constructor(private accountService: AccountService) { }
+  constructor(
+    private accountService: AccountService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.accounts = this.accountService.getAccounts().pipe(
-      catchError(err => {
-        this.errorMessage = err
-        return throwError(err)
-      })
-    )
+    this.accountFromGroup = this.formBuilder.group({
+      accountId: this.formBuilder.control(null)
+    })
+  }
 
+  handleSearchAccount() {
+    let id: string = this.accountFromGroup.value.accountId
+
+    this.accountObservable = this.accountService.getAccount(id, this.currentPage, this.size)
   }
 
 }

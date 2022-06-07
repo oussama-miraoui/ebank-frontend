@@ -1,11 +1,16 @@
-import { Customer } from "./customer.model"
+export interface AccountDetails {
+    accountId: string;
+    balance: number;
+    currentPage: number;
+    totalPages: number;
+    pageSize: number;
+    accountOperations: AccountOperation[];
+}
 
-export interface Account {
-    id: string
-    type: string
-    balance: number
-    createdAt: Date
-    overDraft: number
-    interestRate: number
-    customer: Customer
+export interface AccountOperation {
+    id: number;
+    operationDate: Date;
+    amount: number;
+    type: string;
+    description: string;
 }

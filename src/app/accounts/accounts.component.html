@@ -1,44 +1,86 @@
 <div class="container mt-4">
-    <ng-container *ngIf="accounts | async as listAccounts ; else failureOrLoading">
-        <div class="card">
-            <div class="card-header">
-                Accounts
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Type</th>
-                            <th>Created at</th>
-                            <!-- <th>Customer</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let account of listAccounts">
-                            <td>{{ account.id }}</td>
-                            <td>{{ account.type }}</td>
-                            <td>{{ account.createdAt }}</td>
-                            <!-- <td>{{ account.customer.id }}</td> -->
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </ng-container>
-    <ng-template #failureOrLoading>
-        <ng-container *ngIf="errorMessage ;else loading">
-            <div class="alert alert-danger">
-                {{errorMessage}}
-            </div>
-        </ng-container>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Accounts
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="accountFromGroup" (ngSubmit)="handleSearchAccount()">
+                        <div class="input-group">
+                            <label for="accountId" class="input-group-text">Account ID:</label>
+                            <input type="text" id="accountId" formControlName="accountId" class="form-control">
+                            <button class="btn btn-dark">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
 
-        <ng-template #loading>
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                    <ng-container *ngIf="accountObservable | async as accountDetails">
+                        <div class="container my-2">
+                            <div class="my-1">
+                                <label>Account ID: </label>
+                                <label><strong> {{ accountDetails.accountId }} </strong></label>
+                            </div>
+                            <div class="my-1">
+                                <label>Balance: </label>
+                                <label><strong> {{ accountDetails.balance | number: '1.2-2' }}</strong></label>
+                            </div>
+
+                        </div>
+                    </ng-container>
                 </div>
             </div>
-        </ng-template>
-    </ng-template>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
 </div>
+
+
+
+
+
+<!-- <ng-container *ngIf="accounts | async as listAccounts ; else failureOrLoading">
+    <div class="card">
+        <div class="card-header">
+            Accounts
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Created at</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let account of listAccounts">
+                        <td>{{ account.id }}</td>
+                        <td>{{ account.type }}</td>
+                        <td>{{ account.createdAt }}</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</ng-container>
+<ng-template #failureOrLoading>
+    <ng-container *ngIf="errorMessage ;else loading">
+        <div class="alert alert-danger">
+            {{errorMessage}}
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </ng-template>
+</ng-template> -->
