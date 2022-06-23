@@ -16,17 +16,56 @@
                         </div>
                     </form>
 
-                    <ng-container *ngIf="accountObservable | async as accountDetails">
+                    <ng-container *ngIf="accountObservable | async as accountDetails ">
                         <div class="container my-2">
                             <div class="my-1">
-                                <label>Account ID: </label>
+                                <label class="mx-2">Account ID: </label>
                                 <label><strong> {{ accountDetails.accountId }} </strong></label>
                             </div>
                             <div class="my-1">
-                                <label>Balance: </label>
-                                <label><strong> {{ accountDetails.balance | number: '1.2-2' }}</strong></label>
+                                <label class="mx-2">Balance: </label>
+                                <label><strong> {{ accountDetails.balance | number: '1.2-2' }} MAD</strong></label>
                             </div>
+                            <caption>Operations</caption>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let operation of accountDetails.accountOperationDTOS">
+                                        <td>{{ operation.id }}</td>
+                                        <td>{{ operation.operationDate | date:'dd-mm-yyyy:HH-mm-ss' }}</td>
+                                        <td>{{ operation.type }}</td>
+                                        <td class="text-end">{{ operation.amount | number:'1.2-2'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+                                    <div *ngFor="let item of [].constructor(accountDetails.totalPages); let page=index">
+                                        <li [ngClass]="page==currentPage ? 'active' : ''" class="page-item"
+                                            (click)="goToPage(page)" style="cursor: pointer;">
 
+                                            <a class="page-link">{{page}}</a>
+                                        </li>
+                                    </div>
+                                    <!-- <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">2</a>
+                                    </li> -->
+                                    <li class="page-item">
+                                        <a class="page-link" (click)="next()">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </ng-container>
                 </div>

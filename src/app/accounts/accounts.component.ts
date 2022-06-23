@@ -33,5 +33,17 @@ export class AccountsComponent implements OnInit {
 
     this.accountObservable = this.accountService.getAccount(id, this.currentPage, this.size)
   }
-
+  goToPage(page: number) {
+    this.currentPage = page
+    this.handleSearchAccount()
+  }
+  next() {
+    this.currentPage++
+    this.handleSearchAccount()
+  }
+  previous() {
+    this.currentPage--
+    this.handleSearchAccount()
+  }
 }
+
