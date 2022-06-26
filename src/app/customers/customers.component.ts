@@ -47,6 +47,8 @@ export class CustomersComponent implements OnInit {
         return throwError(err);
       })
     )
+
+    this.searchFormGroup.reset()
   }
 
   handleDeleteCustomer(customer: Customer) {
