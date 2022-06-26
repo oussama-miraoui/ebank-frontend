@@ -2,6 +2,8 @@
 
 <h3>Customers interface</h3>
 
+<img src="screens/customers.png" >
+
 <h5>Add, edit, delete, search and view accounts list for each customer</h5>
 <img src="screens/customers.png" >
 
