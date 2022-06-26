@@ -1,9 +1,10 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../model/account.model';
 import { AccountService } from '../services/account.service';
+declare const alertify: any;
 
 
 @Component({
@@ -30,9 +31,9 @@ export class AccountsComponent implements OnInit {
     })
 
     this.operationFormGroup = this.formBuilder.group({
-      operationType: this.formBuilder.control(null),
-      amount: this.formBuilder.control(0),
-      description: this.formBuilder.control(null),
+      operationType: this.formBuilder.control(null, [Validators.required]),
+      amount: this.formBuilder.control(0, [Validators.required]),
+      description: this.formBuilder.control(null, [Validators.required]),
       accountDestination: this.formBuilder.control(null)
     })
   }
@@ -40,7 +41,12 @@ export class AccountsComponent implements OnInit {
   handleSearchAccount() {
     let id: string = this.accountFromGroup.value.accountId
 
-    this.accountObservable = this.accountService.getAccount(id, this.currentPage, this.size)
+    this.accountObservable = this.accountService.getAccount(id, this.currentPage, this.size).pipe(
+      catchError(err => {
+        this.errorMessage = err.message
+        return throwError(err)
+      })
+    )
 
     this.operationFormGroup.reset()
   }
@@ -67,7 +73,8 @@ export class AccountsComponent implements OnInit {
     if (operationType == "DEBIT") {
       this.accountService.debit(accountId, amount, description).subscribe({
         next: data => {
-          alert("yaaaaaaaaaay")
+          alertify.success("Debit done successfully!")
+          this.operationFormGroup.reset()
           this.handleSearchAccount()
         },
         error: err => {
@@ -77,7 +84,8 @@ export class AccountsComponent implements OnInit {
     } else if (operationType == "CREDIT") {
       this.accountService.credit(accountId, amount, description).subscribe({
         next: data => {
-          alert("yaaaaaaaaaay")
+          alertify.success("Credit done successfully!")
+          this.operationFormGroup.reset()
           this.handleSearchAccount()
         },
         error: err => {
@@ -88,7 +96,8 @@ export class AccountsComponent implements OnInit {
     } else if (operationType == "TRANSFER") {
       this.accountService.transfer(accountId, accountDestination, amount, description).subscribe({
         next: data => {
-          alert("yaaaaaaaaaay")
+          alertify.success("Transfer done successfully!")
+          this.operationFormGroup.reset()
           this.handleSearchAccount()
         },
         error: err => {
@@ -96,7 +105,6 @@ export class AccountsComponent implements OnInit {
         }
       })
     }
-    this.operationFormGroup.reset()
   }
 }
 

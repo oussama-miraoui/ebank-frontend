@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { CustomerService } from '../services/customer.service'
@@ -19,7 +20,8 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,9 @@ export class CustomersComponent implements OnInit {
       },
       error: err => this.errorMessage = err.message
     })
+  }
+  handleCustomerAccounts(customer: Customer) {
+    this.router.navigateByUrl('/customer-accounts/' + customer.id, { state: customer })
   }
 
 }

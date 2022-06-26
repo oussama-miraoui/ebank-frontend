@@ -15,8 +15,21 @@
                             </button>
                         </div>
                     </form>
-
-                    <ng-container *ngIf="accountObservable | async as accountDetails ">
+                    <!-- <ng-template #failureOrLoading>
+                        <ng-container *ngIf="errorMessage; else loading">
+                            <div class="alert alert-danger my-2">
+                                {{errorMessage}}
+                            </div>
+                        </ng-container>
+                        <ng-template #loading>
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-template> -->
+                    <ng-container *ngIf="accountObservable | async as accountDetails">
                         <div class="container my-2">
                             <div class="my-1">
                                 <label class="mx-2">Account ID: </label>
@@ -39,7 +52,7 @@
                                 <tbody>
                                     <tr *ngFor="let operation of accountDetails.accountOperationDTOS">
                                         <td>{{ operation.id }}</td>
-                                        <td>{{ operation.operationDate | date:'dd-mm-yyyy:HH-mm-ss' }}</td>
+                                        <td>{{ operation.operationDate | date:'dd-MM-YYYY HH:mm:ss' }}</td>
                                         <td>{{ operation.type }}</td>
                                         <td class="text-end">{{ operation.amount | number:'1.2-2'}}</td>
                                     </tr>
@@ -85,7 +98,7 @@
                             <label class="form-check-label">Debit:</label>
                         </div>
                         <div class="form-check form-check-inline ">
-                            <input type="radio" class="form-check-input" formControlName="operationType" value="CREDT">
+                            <input type="radio" class="form-check-input" formControlName="operationType" value="CREDIT">
                             <label class="form-check-label">Credit:</label>
                         </div>
                         <div class="form-check form-check-inline mb-2">
@@ -108,7 +121,7 @@
                         </div>
 
                         <div class="d-grid mt-2">
-                            <button class="btn btn-block btn-success">
+                            <button class="btn btn-block btn-success" [disabled]="!operationFormGroup.valid">
                                 <i class="bi bi-save"></i>
                                 Save
                             </button>
