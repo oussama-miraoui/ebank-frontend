@@ -1,26 +1,29 @@
 # DigitalBankingWeb
 
-<img src="screens/customers" >
-## Development server
+<h3>Customers interface</h3>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h5>Add, edit, delete, search and view accounts list for each customer</h5>
+<img src="screens/customers.png" >
 
-## Code scaffolding
+<h6>Add customer interface</h6>
+<img src="screens/addcustomer.png" >
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<h6>Edit customer interface</h6>
+<img src="screens/editcustomer.png" >
 
-## Build
+<h6>Search for a customer by name</h6>
+<img src="screens/searchcus.png" >
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<h6>Customer accounts</h6>
+<img src="screens/customeraccounts.png" >
 
-## Running unit tests
+<h3>Accounts & operations interface</h3>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<h5>Search for an account by ID</h5>
 
-## Running end-to-end tests
+<img src="screens/searchInput.png" >
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+<h5>Account and all its operations</h5>
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<h6>We have different types of operations(Debit, Credit, Transfer): </h6>
+<img src="screens/operation.png" >
