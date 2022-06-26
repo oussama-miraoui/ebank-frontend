@@ -64,6 +64,11 @@ export class CustomersComponent implements OnInit {
       error: err => this.errorMessage = err.message
     })
   }
+
+  handleEditCustomer(customer: Customer) {
+    this.router.navigateByUrl('/edit-customer/' + customer.id, { state: customer })
+  }
+
   handleCustomerAccounts(customer: Customer) {
     this.router.navigateByUrl('/customer-accounts/' + customer.id, { state: customer })
   }

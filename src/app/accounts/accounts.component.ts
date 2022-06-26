@@ -47,8 +47,6 @@ export class AccountsComponent implements OnInit {
         return throwError(err)
       })
     )
-
-    this.operationFormGroup.reset()
   }
   goToPage(page: number) {
     this.currentPage = page

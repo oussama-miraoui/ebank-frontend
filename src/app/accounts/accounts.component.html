@@ -32,10 +32,6 @@
                     <ng-container *ngIf="accountObservable | async as accountDetails">
                         <div class="container my-2">
                             <div class="my-1">
-                                <label class="mx-2">Account ID: </label>
-                                <label><strong> {{ accountDetails.accountId }} </strong></label>
-                            </div>
-                            <div class="my-1">
                                 <label class="mx-2">Balance: </label>
                                 <label><strong> {{ accountDetails.balance | number: '1.2-2' }} MAD</strong></label>
                             </div>

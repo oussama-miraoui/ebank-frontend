@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AccountDetails } from '../model/account.model';
 import { Customer } from '../model/customer.model';
-
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,9 @@ export class CustomerService {
 
   public editCustomer(id: number, customer: Customer): Observable<Customer> {
     return this.http.put<Customer>(environment.backendHost + "/customers/" + id, customer)
+  }
+
+  public getCustomerAccounts(id: number): Observable<Array<AccountDetails>> {
+    return this.http.get<Array<AccountDetails>>(environment.backendHost + "/customers/" + id + "/accountsList")
   }
 }

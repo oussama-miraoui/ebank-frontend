@@ -43,7 +43,7 @@
                             <td>{{customer.name}}</td>
                             <td>{{customer.email}}</td>
                             <td class="text-center">
-                                <button class="btn btn-primary btn-sm">
+                                <button (click)="handleEditCustomer(customer)" class="btn btn-primary btn-sm">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 |
